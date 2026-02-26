@@ -35,7 +35,7 @@
 
     rustfmt = {
       enable = true;
-      entry = "${rustfmt}/bin/ruff format";
+      entry = "${rustfmt}/bin/rustfmt";
       files = "\\.rs$";
     };
   };
