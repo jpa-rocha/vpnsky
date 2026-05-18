@@ -8,6 +8,7 @@
   system,
   cargo,
   rust-analyzer,
+  rustc,
   ...
 }:
 {
@@ -19,6 +20,7 @@
       rust-analyzer
       scripts.lint
       sops
+      rustc
     ];
 
     inherit (self.checks.${system}.pre-commit-check) shellHook;

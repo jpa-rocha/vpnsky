@@ -25,6 +25,8 @@
 
         cargo = pkgs.cargo;
 
+        rustc = pkgs.rustc;
+
         scripts = import ./nix/scripts.nix { inherit pkgs cargo; };
 
         treefmtEval = inputs.treefmt-nix.lib.evalModule pkgs rustfmt ./nix/treefmt.nix;
@@ -47,6 +49,7 @@
             cargo
             rust-analyzer
             rustfmt
+            rustc
             ;
           inherit (pkgs)
             age
