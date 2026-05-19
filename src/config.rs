@@ -12,15 +12,9 @@ pub static CONFIG: OnceLock<Config> = OnceLock::new();
 
 #[derive(Debug, Deserialize)]
 pub struct Config {
-    pub solutions: SolutionsConfig,
     pub input: InputConfig,
     pub logs: LogsConfig,
     pub vpnsky: VpnskyConfig,
-}
-
-#[derive(Debug, Deserialize)]
-pub struct SolutionsConfig {
-    pub path: PathBuf,
 }
 
 #[derive(Debug, Deserialize)]

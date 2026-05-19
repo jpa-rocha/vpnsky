@@ -1,11 +1,8 @@
 mod cli;
-pub mod config;
-pub mod errors;
-pub mod logs;
 
 use clap::Parser;
 use cli::{Cli, Commands};
-use spdlog::{error, info};
+use spdlog::{debug, error};
 use vpnsky::config::{CONFIG, CONFIG_PATH, load_options};
 use vpnsky::errors::AppErrors;
 use vpnsky::logs::init_logs;
@@ -23,7 +20,7 @@ fn main() -> Result<(), AppErrors> {
 
     match init_logs() {
         Ok(_) => {
-            info!("logger set up complete")
+            debug!("logger set up complete")
         }
         Err(e) => {
             error!("could not configure logger");
@@ -33,7 +30,7 @@ fn main() -> Result<(), AppErrors> {
 
     let args = Cli::parse();
     match args.command {
-        Commands::New(cmd) => cmd.execute(),
-        Commands::Solve(cmd) => cmd.execute(),
+        Commands::Start(cmd) => cmd.execute(),
+        Commands::Stop(cmd) => cmd.execute(),
     }
 }

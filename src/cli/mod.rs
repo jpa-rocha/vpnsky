@@ -1,9 +1,9 @@
-mod new;
-mod solve;
+mod start;
+mod stop;
 
 use clap::{Args as ClapArgs, Parser, Subcommand};
-use new::NewCmd;
-use solve::SolveCmd;
+use start::StartCmd;
+use stop::StopCmd;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
@@ -17,6 +17,6 @@ pub struct Args {}
 
 #[derive(Subcommand, Debug)]
 pub enum Commands {
-    New(NewCmd),
-    Solve(SolveCmd),
+    Start(StartCmd),
+    Stop(StopCmd),
 }
