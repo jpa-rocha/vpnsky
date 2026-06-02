@@ -20,3 +20,7 @@ pub enum Commands {
     Start(StartCmd),
     Stop(StopCmd),
 }
+
+fn check_vpn_pid() -> bool {
+    return std::path::Path::new("/var/run/vpnc.pid").exists();
+}

@@ -13,7 +13,7 @@
     let
       eachSystem = inputs.flake-utils.lib.eachDefaultSystem;
     in
-    eachSystem (
+    (eachSystem (
       system:
       let
         pkgs = inputs.nixpkgs.legacyPackages.${system};
@@ -39,6 +39,22 @@
         };
       in
       {
+        packages.default = pkgs.rustPlatform.buildRustPackage {
+          pname = "vpnsky";
+          version = "0.1.0";
+          src = inputs.nix-filter.lib {
+            root = ./.;
+            include = [
+              "src"
+              "Cargo.toml"
+              "Cargo.lock"
+            ];
+          };
+          cargoLock.lockFile = ./Cargo.lock;
+          nativeBuildInputs = [ pkgs.pkg-config ];
+          buildInputs = [ pkgs.openssl ];
+        };
+
         devShells = import ./nix/devshells.nix {
           inherit
             pkgs
@@ -66,5 +82,12 @@
 
         formatter = treefmtEval.config.build.wrapper;
       }
-    );
+    ))
+    // {
+      overlays.default = prev: {
+        vpnsky = self.packages.${prev.stdenv.hostPlatform.system}.default;
+      };
+
+      homeManagerModules.default = import ./nix/hm-module.nix;
+    };
 }

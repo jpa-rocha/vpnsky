@@ -1,7 +1,7 @@
 [logs]
 to_file = false
 path = "./logs"
-level = "DEBUG"
+level = "INFO"
 
 [settings]
 mtu = 1320
