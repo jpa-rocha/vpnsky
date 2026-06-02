@@ -1,11 +1,11 @@
-[input]
-path = "input"
-input_file = "input.txt"
-
 [logs]
 to_file = false
 path = "./logs"
 level = "DEBUG"
 
-[vpnsky]
-cookie = "53616c7465645f5fadd777ee4e1dfa008af26d2bde4b0d3633759cd1110ce78b3638e0fed294bb93771d0000a8c44c9026949039dcaab9d3c7d997cd914318e9"
+[settings]
+mtu = 1320
+address = "vpn.wobcom.de"
+
+[secrets]
+path = "/home/jrocha/nixos/secrets.yaml"

@@ -1,13 +1,12 @@
 use clap::Args;
 use spdlog::info;
-use vpnsky::config::get_options;
-use vpnsky::errors::AppErrors;
+use std::error::Error;
 
 #[derive(Args, Debug)]
 pub struct StopCmd {}
 
 impl StopCmd {
-    pub fn execute(&self) -> Result<(), AppErrors> {
+    pub fn execute(&self) -> Result<(), Box<dyn Error>> {
         info!("STOOOOOP");
 
         Ok(())

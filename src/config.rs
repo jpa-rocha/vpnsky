@@ -7,20 +7,15 @@ use std::sync::OnceLock;
 use crate::errors;
 
 pub const CONFIG_PATH: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/config.toml");
+// pub const ALT_CONFIG_PATH: &str = "~/.config/vpnsky.toml";
 
 pub static CONFIG: OnceLock<Config> = OnceLock::new();
 
 #[derive(Debug, Deserialize)]
 pub struct Config {
-    pub input: InputConfig,
     pub logs: LogsConfig,
-    pub vpnsky: VpnskyConfig,
-}
-
-#[derive(Debug, Deserialize)]
-pub struct InputConfig {
-    pub path: PathBuf,
-    pub input_file: String,
+    pub settings: SettingsConfig,
+    pub secrets: SecretsConfig,
 }
 
 #[derive(Debug, Deserialize)]
@@ -31,13 +26,20 @@ pub struct LogsConfig {
 }
 
 #[derive(Debug, Deserialize)]
-pub struct VpnskyConfig {
-    pub cookie: String,
+pub struct SettingsConfig {
+    pub address: String,
+    pub mtu: i32,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct SecretsConfig {
+    pub path: String,
 }
 
 pub fn load_options() -> Result<Config, ConfigurationError> {
     let settings = match ConfigRs::builder()
         .add_source(config::File::with_name(CONFIG_PATH))
+        // .add_source(config::File::with_name(ALT_CONFIG_PATH))
         .add_source(config::Environment::with_prefix("VPNSKY"))
         .build()
     {

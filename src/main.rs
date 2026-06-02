@@ -3,11 +3,11 @@ mod cli;
 use clap::Parser;
 use cli::{Cli, Commands};
 use spdlog::{debug, error};
+use std::error::Error;
 use vpnsky::config::{CONFIG, CONFIG_PATH, load_options};
-use vpnsky::errors::AppErrors;
 use vpnsky::logs::init_logs;
 
-fn main() -> Result<(), AppErrors> {
+fn main() -> Result<(), Box<dyn Error>> {
     // Initialize Options
     let options = match load_options() {
         Ok(options) => options,

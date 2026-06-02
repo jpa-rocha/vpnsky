@@ -1,9 +1,10 @@
 use crate::config::get_options;
-use crate::errors::{AppErrors, LoggerError};
+use crate::errors::LoggerError;
+use std::error::Error;
 
 use spdlog::sink::FileSink;
 
-pub fn init_logs() -> Result<(), AppErrors> {
+pub fn init_logs() -> Result<(), Box<dyn Error>> {
     match get_options().logs.to_file {
         true => {
             let path = &get_options().logs.path.join("vpnsky.log");
