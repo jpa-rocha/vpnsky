@@ -6,7 +6,6 @@ use std::sync::OnceLock;
 
 use crate::errors;
 
-// pub const CONFIG_PATH: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/config.toml");
 pub const CONFIG_PATH: &str = "~/.config/vpnsky.toml";
 
 pub static CONFIG: OnceLock<Config> = OnceLock::new();
@@ -37,8 +36,10 @@ pub struct SecretsConfig {
 }
 
 pub fn load_options() -> Result<Config, ConfigurationError> {
+    let home = std::env::var("HOME").unwrap_or_else(|_| ".".to_string());
+    let path = CONFIG_PATH.replacen("~", &home, 1);
     let settings = match ConfigRs::builder()
-        .add_source(config::File::with_name(CONFIG_PATH))
+        .add_source(config::File::with_name(&path))
         .add_source(config::Environment::with_prefix("VPNSKY"))
         .build()
     {
