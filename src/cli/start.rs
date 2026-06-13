@@ -5,19 +5,25 @@ use vpnsky::config::get_options;
 use clap::Args;
 use vpnsky::secrets::get_sops_secrets;
 
-use crate::cli::check_vpn_pid;
+use crate::cli::{check_vpn_pid, stop::StopCmd};
 
 #[derive(Args, Debug)]
 pub struct StartCmd {}
 
 impl StartCmd {
     pub fn execute(&self) -> Result<(), Box<dyn Error>> {
-        match check_vpn_pid() {
+        let running = match check_vpn_pid() {
             true => {
                 info!("vpn is already running");
-                Ok(())
+
+                let stop = StopCmd {};
+                stop.execute()
             }
-            false => {
+            false => Ok(()),
+        };
+
+        match running {
+            Ok(_) => {
                 let username = match get_sops_secrets(vec!["vpn", "id", "username"]) {
                     Ok(r) => r,
                     Err(_) => panic!("no username available"),
@@ -64,6 +70,7 @@ impl StartCmd {
 
                 Ok(())
             }
+            Err(e) => Err(e),
         }
     }
 }
