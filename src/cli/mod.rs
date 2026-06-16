@@ -1,7 +1,9 @@
+mod reload;
 mod start;
 mod stop;
 
 use clap::{Args as ClapArgs, Parser, Subcommand};
+use reload::ReloadCmd;
 use start::StartCmd;
 use stop::StopCmd;
 
@@ -19,6 +21,7 @@ pub struct Args {}
 pub enum Commands {
     Start(StartCmd),
     Stop(StopCmd),
+    Reload(ReloadCmd),
 }
 
 fn check_vpn_pid() -> bool {

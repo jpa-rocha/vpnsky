@@ -32,5 +32,6 @@ fn main() -> Result<(), Box<dyn Error>> {
     match args.command {
         Commands::Start(cmd) => cmd.execute(),
         Commands::Stop(cmd) => cmd.execute(),
+        Commands::Reload(cmd) => cmd.execute(),
     }
 }
