@@ -24,25 +24,27 @@ impl StartCmd {
 
         match running {
             Ok(_) => {
-                let username = match get_sops_secrets(vec!["vpn", "id", "username"]) {
+                let username = match get_sops_secrets(vec!["work", "vpn", "id", "username"]) {
                     Ok(r) => r,
                     Err(_) => panic!("no username available"),
                 };
 
-                let password = match get_sops_secrets(vec!["vpn", "id", "password"]) {
+                let password = match get_sops_secrets(vec!["work", "vpn", "id", "password"]) {
                     Ok(r) => r,
                     Err(_) => panic!("no password available"),
                 };
 
-                let ipsec_username = match get_sops_secrets(vec!["vpn", "ipsec", "username"]) {
-                    Ok(r) => r,
-                    Err(_) => panic!("no username available"),
-                };
+                let ipsec_username =
+                    match get_sops_secrets(vec!["work", "vpn", "ipsec", "username"]) {
+                        Ok(r) => r,
+                        Err(_) => panic!("no username available"),
+                    };
 
-                let ipsec_password = match get_sops_secrets(vec!["vpn", "ipsec", "password"]) {
-                    Ok(r) => r,
-                    Err(_) => panic!("no password available"),
-                };
+                let ipsec_password =
+                    match get_sops_secrets(vec!["work", "vpn", "ipsec", "password"]) {
+                        Ok(r) => r,
+                        Err(_) => panic!("no password available"),
+                    };
 
                 let output = std::process::Command::new("sudo")
                     .arg("vpnc")
