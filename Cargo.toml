@@ -11,4 +11,5 @@ reqwest = { version = "0.13.3", features = ["blocking"] }
 serde = { version = "1.0.228", features = ["derive"] }
 spdlog-rs = "0.5.3"
 tempdir = "0.3.7"
+tempfile = "3.27.0"
 thiserror = "2.0.18"
